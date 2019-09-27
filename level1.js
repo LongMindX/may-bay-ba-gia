@@ -6,6 +6,7 @@ function level1() {
     processEnemies();
     playerShoot();
     dropGift();
+    processEnemyBullets();
     checkCollide();
   }
 }
@@ -102,7 +103,6 @@ function playerShoot() {
 }
 
 
-
 function processEnemies() {
   enemyCounter++;
   if (enemyCounter > 80) {
@@ -113,6 +113,7 @@ function processEnemies() {
       hp: 5,
       width: 50,
       height: 50,
+      counter: Math.floor(Math.random() * 100),
     };
     enemies.push(newEnemy);
     enemyCounter = Math.random() * 10;
@@ -121,11 +122,34 @@ function processEnemies() {
   for(let i = 0; i < enemies.length; i++) {
     let enemy = enemies[i];
     if (enemy.active) {
+      enemy.counter++;
       enemy.y += 2;
       square(enemy.x, enemy.y, 30);
+      if (enemy.counter > 100) {
+        enemy.counter = 0;
+        let newEnemyBullet = {
+          x: enemy.x,
+          y: enemy.y,
+          width: 15,
+          height: 15,
+        };
+        enemyBullets.push(newEnemyBullet);
+      }
     }
   }
 }
+
+// let enemyBulletCounter = 0;
+
+function processEnemyBullets() {
+  for(let i = 0; i < enemyBullets.length; i++) {
+    let enemyBullet = enemyBullets[i];
+    rect(enemyBullet.x, enemyBullet.y, enemyBullet.width, enemyBullet.height);
+    enemyBullet.y += 3;
+  }
+}
+
+let enemyBullets = [];
 
 function checkCollide() {
   for (let k = 0; k < gifts.length; k++) {
@@ -136,6 +160,7 @@ function checkCollide() {
       }
     }
   }
+
   for(let i = 0; i < playerBullets.length; i++) {
     let bullet = playerBullets[i];
     if (bullet.active) {
@@ -198,7 +223,9 @@ function dropGift() {
   }
   for(let i = 0; i < gifts.length; i++) {
     let gift = gifts[i];
+
     if (gift.active) {
+      console.log('gift');
       rect(gift.x, gift.y, 10, 10);
       gift.y +=2 ;
       if(overlap(player, gift)) {
