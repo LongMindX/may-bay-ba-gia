@@ -10,22 +10,7 @@ function level1() {
     checkCollide();
   }
 }
-
-let player = {
-  x: 200,
-  y: 360,
-  width: 10,
-  height: 10,
-  lockAttack: false,
-  lockCounter: 0,
-  hp: 3,
-  level: 1,
-  active: true,
-};
-
-let playerBullets = [
-];
-
+let playerBullets = [];
 let enemies = [];
 let gifts = [];
 let enemyCounter = 0;
@@ -37,7 +22,8 @@ function clamp(x, min, max) {
 }
 
 function processPlayer() {
-  circle(player.x, player.y, 20);
+  //circle(player.x, player.y, 20);
+  image(playerImage, player.x - 32, player.y - 32); //3
   if (keyIsDown(LEFT_ARROW)) {
     player.x -= 5;
   }
@@ -96,7 +82,9 @@ function playerShoot() {
   for(let i = 0; i < playerBullets.length; i++) {
     let bullet = playerBullets[i];
     if (bullet.active) {
-      circle(bullet.x, bullet.y, 8);
+      // image(playerImage, player.x - 32, player.y - 32); //3
+      // circle(bullet.x, bullet.y, 8); // 3
+      image(playerBuleltImage1, bullet.x - 7.5, bullet.y - 6.5);
       bullet.y -= 8;
     }
   }
@@ -124,7 +112,7 @@ function processEnemies() {
     if (enemy.active) {
       enemy.counter++;
       enemy.y += 2;
-      square(enemy.x, enemy.y, 30);
+      image(enemyImage, enemy.x - enemy.width / 2, enemy.y - enemy.height / 2);
       if (enemy.counter > 100) {
         enemy.counter = 0;
         let newEnemyBullet = {
@@ -144,7 +132,8 @@ function processEnemies() {
 function processEnemyBullets() {
   for(let i = 0; i < enemyBullets.length; i++) {
     let enemyBullet = enemyBullets[i];
-    rect(enemyBullet.x, enemyBullet.y, enemyBullet.width, enemyBullet.height);
+    // rect(enemyBullet.x, enemyBullet.y, enemyBullet.width, enemyBullet.height); // 3
+    image(enemyBulletImage, enemyBullet.x - 12, enemyBullet.y - 25);
     enemyBullet.y += 3;
   }
 }
