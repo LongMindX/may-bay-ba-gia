@@ -52,6 +52,7 @@ function playerShoot() {
           y: player.y - 20,
           active: true,
         };
+        playerAttackSound.play();
         playerBullets.push(newBullet);
       } else if (player.level == 2) {
         let newBullet1 = {
@@ -126,8 +127,6 @@ function processEnemies() {
     }
   }
 }
-
-// let enemyBulletCounter = 0;
 
 function processEnemyBullets() {
   for(let i = 0; i < enemyBullets.length; i++) {

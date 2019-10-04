@@ -15,14 +15,20 @@ let playerBuleltImage1; //1
 let enemyBulletImage;
 let enemyImage;
 
+let backgroundMusic;
+let playerAttackSound;
+
 function preload() {
   playerImage = loadImage('player.png'); // 2
   playerBuleltImage1 = loadImage('playerbullet1.png');
   enemyBulletImage = loadImage('enemybullet.png');
   enemyImage = loadImage('enemy.png');
+  backgroundMusic = loadSound('sound/background.mp3');
+  playerAttackSound = loadSound('sound/playerAttack.wav');
 }
 
 function setup() {
+  backgroundMusic.play();
   createCanvas(400, 400);
 }
 
